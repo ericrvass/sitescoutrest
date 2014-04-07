@@ -1,4 +1,5 @@
 require "sitescoutrest/concerns/base"
+require "sitescoutrest/concerns/audience"
 require "sitescoutrest/concerns/campaign"
 require "sitescoutrest/concerns/creative"
 
@@ -6,6 +7,7 @@ module Sitescoutrest
   # Interface for using the SiteScout REST API
   class Client
     include Sitescoutrest::Concerns::Base
+    include Sitescoutrest::Concerns::Audience
     include Sitescoutrest::Concerns::Campaign
     include Sitescoutrest::Concerns::Creative
     
