@@ -37,6 +37,28 @@ module Sitescoutrest
           puts 'Error In GET: ' + e.message 
         end 
       end
+    
+      def get_text(path, params, oauth_token)
+        tries = 2
+        begin
+          request = Net::HTTP::Get.new(params.blank? ? path : "#{path}?".concat(params.collect { |k,v| "#{k}=#{CGI::escape(v.to_s)}" }.join('&')))
+          request['Authorization'] = api_header(oauth_token)
+          request['Accept'] = 'text/html'
+          response = http_connection.request(request)
+          result = response.body
+          #TODO: response not json
+          #check_result(result)
+          return result
+        rescue AuthorizationFailedError
+          tries -= 1
+          if tries > 0
+            oauth_token = authenticate
+            retry
+          end
+        rescue Exception => e 
+          puts 'Error In GET: ' + e.message 
+        end 
+      end
 
       def data_post(path, content_type, json_data, oauth_token)
         tries = 2

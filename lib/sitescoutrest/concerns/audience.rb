@@ -25,7 +25,7 @@ module Sitescoutrest
         advertiser_id = self.advertiser_id || options[:advertiser_id]
         params = options[:params] || {"type" => link_type}
         path = "/advertisers/#{advertiser_id}/audiences/#{audience_id}/tag"
-        result = get(path, params, oauth_token)
+        result = get_text(path, params, oauth_token)
         return result
       end
       
