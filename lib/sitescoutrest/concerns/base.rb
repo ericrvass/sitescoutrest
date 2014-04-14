@@ -24,7 +24,7 @@ module Sitescoutrest
           request['Authorization'] = api_header(oauth_token)
           request['Accept'] = 'application/json'
           response = http_connection.request(request)
-          result = JSON.parse(response.body)
+          result = response.body.blank? ? "" : JSON.parse(response.body)
           check_result(result)
           return result
         rescue AuthorizationFailedError
@@ -68,7 +68,7 @@ module Sitescoutrest
           request['Accept'] = 'application/json'
           request.body = json_data
           response = http_connection.request(request)
-          result = JSON.parse(response.body)
+          result = response.body.blank? ? "" : JSON.parse(response.body)
           check_result(result)
           return result
         rescue AuthorizationFailedError
@@ -103,7 +103,7 @@ module Sitescoutrest
           request['Accept'] = 'application/json'
           request.body = file
           response = http_connection.request(request)
-          result = JSON.parse(response.body)
+          result = response.body.blank? ? "" : JSON.parse(response.body)
           check_result(result)
           return result
         rescue AuthorizationFailedError
