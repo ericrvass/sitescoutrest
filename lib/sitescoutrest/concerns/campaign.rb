@@ -30,6 +30,15 @@ module Sitescoutrest
         return result
       end
       
+      def add_exchange_to_campaign(campaign_id, exchange_data, options = {})
+        oauth_token = self.oauth_token || options[:oauth_token]
+        advertiser_id = self.advertiser_id || options[:advertiser_id]
+        path = "/advertisers/#{advertiser_id}/campaigns/#{campaign_id}/sources/exchanges"
+        content_type = 'application/json'
+        result = data_post(path, content_type, exchange_data, oauth_token)
+        return result
+      end
+      
     end
   end
 end
